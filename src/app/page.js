@@ -20,11 +20,11 @@ export default function Home() {
   const fetchArtworksData = useCallback(async () => {
     setError(null);
     setIsLoading(true);
+    setLoadingStatus(new Array(ARTWORKS_PER_PAGE).fill(true));
     try {
       const fetchedArtworks = await fetchArtworks(page);
       if (fetchedArtworks.length === ARTWORKS_PER_PAGE) {
         setArtworks(fetchedArtworks);
-        setLoadingStatus(new Array(fetchedArtworks.length).fill(true));
       } else {
         throw new Error(
           `Expected ${ARTWORKS_PER_PAGE} artworks, but received: ${fetchedArtworks.length}`
@@ -43,10 +43,8 @@ export default function Home() {
   }, [fetchArtworksData]);
 
   const handleShuffleClick = useCallback(() => {
-    if (!isLoading) {
-      setPage((prevPage) => (prevPage < MAX_PAGE ? prevPage + 1 : 1));
-    }
-  }, [isLoading]);
+    setPage((prevPage) => (prevPage < MAX_PAGE ? prevPage + 1 : 1));
+  }, []);
 
   const handleImageLoad = (index) => {
     setLoadingStatus((prevStatus) => {
@@ -56,8 +54,7 @@ export default function Home() {
     });
   };
 
-  const allLoaded =
-    loadingStatus.length > 0 && loadingStatus.every((status) => !status);
+  const allLoaded = loadingStatus.every((status) => !status);
 
   if (error) {
     return <div className={styles.errorMessage}>Error: {error}</div>;
@@ -74,12 +71,12 @@ export default function Home() {
         <div className={styles.gallery}>
           {artworks.map((art, index) => (
             <ArtworkItem
-              key={art.objectNumber}
+              key={`${art.objectNumber}-${page}`}
               art={art}
               onImageLoad={() => handleImageLoad(index)}
             />
           ))}
-          {isLoading || !allLoaded ? <LoadingOverlay /> : null}
+          {isLoading && <LoadingOverlay />}
         </div>
       </div>
       <div className={styles.homePageButton}>
