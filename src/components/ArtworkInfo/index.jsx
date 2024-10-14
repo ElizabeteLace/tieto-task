@@ -16,7 +16,6 @@ const ArtInfo = ({ artDetails }) => {
   const infoItems = [
     { title: "Author", content: artDetails?.principalOrFirstMaker },
     { title: "Artwork dating", content: artDetails?.dating?.presentingDate },
-    { title: "Artwork materials", content: artDetails?.inscriptions },
   ];
 
   return (
