@@ -1,11 +1,11 @@
 "use client";
-import { useEffect, useState } from 'react';
-import { fetchArtworkDetails } from '../../../lib/api';
-import Link from 'next/link';
-import Title from '@/components/Title';
-import BackButton from '@/components/BackButton';
-import styles from '../[id]/style.module.scss';
-import ArtInfo from '@/components/ArtworkInfo'
+import { useEffect, useState } from "react";
+import { fetchArtworkDetails } from "../../../lib/api";
+import Link from "next/link";
+import Title from "@/components/Title";
+import BackButton from "@/components/BackButton";
+import styles from "../[id]/style.module.scss";
+import ArtInfo from "@/components/ArtworkInfo";
 
 export default function ArtDetails({ params }) {
   const { id } = params;
@@ -19,7 +19,7 @@ export default function ArtDetails({ params }) {
         const data = await fetchArtworkDetails(id);
         setArtDetails(data);
       } catch (err) {
-        setError('Failed to fetch artwork details');
+        setError("Failed to fetch artwork details");
       } finally {
         setLoading(false);
       }
@@ -38,32 +38,38 @@ export default function ArtDetails({ params }) {
 
   if (!artDetails) {
     return (
-    <div>
-      <BackButton text="Back to Gallery"/>
-      <p>Artwork details not found.</p>
-    </div>
-  );
+      <div>
+        <BackButton text="Back to Gallery" />
+        <p>Artwork details not found.</p>
+      </div>
+    );
   }
 
   return (
     <div className={styles.artPage}>
-      <BackButton text="Back to Gallery"/>
+      <BackButton text="Back to Gallery" />
       <div className={styles.artPageGrid}>
-      <Title as="h1" size="large">{artDetails.title}</Title>
-      <div className={styles.imageContainer}>
-        {artDetails.webImage ? (
-          <img
-            src={artDetails.webImage.url}
-            alt={artDetails.title}
-            className={styles.image}
-          />
-        ) : (
-          <p className={styles.noImage}>No image available for this artwork.</p>
-        )}
+        <Title as="h1" size="large">
+          {artDetails.title}
+        </Title>
+        <div className={styles.imageContainer}>
+          {artDetails.webImage ? (
+            <img
+              src={artDetails.webImage.url}
+              alt={artDetails.title}
+              className={styles.image}
+            />
+          ) : (
+            <p className={styles.noImage}>
+              No image available for this artwork.
+            </p>
+          )}
+        </div>
+        <p className={styles.description}>
+          {artDetails.plaqueDescriptionEnglish || "No description available."}
+        </p>
+        <ArtInfo artDetails={artDetails} />
       </div>
-        <p className={styles.description}>{artDetails.plaqueDescriptionEnglish || 'No description available.'}</p>
-      <ArtInfo artDetails={artDetails}/>
     </div>
-  </div>
   );
 }

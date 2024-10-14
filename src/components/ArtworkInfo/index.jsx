@@ -1,10 +1,14 @@
-import Title from '../Title';
-import styles from './style.module.scss';
+import Title from "../Title";
+import styles from "./style.module.scss";
 
 const ArtInfoItem = ({ title, content }) => (
   <div className={styles.artInfo}>
-    <Title as="h2" size='medium'>{title}</Title>
-    <p>{content && content.length > 0 ? content : 'No description available.'}</p>
+    <Title as="h2" size="medium">
+      {title}
+    </Title>
+    <p>
+      {content && content.length > 0 ? content : "No description available."}
+    </p>
   </div>
 );
 
