@@ -1,0 +1,43 @@
+.artPage{
+    max-width: var(--container-size);
+    margin: 0 auto;
+}
+
+.artPageGrid{
+    display: grid;
+    grid-template-columns: repeat(8, 1fr);
+    grid-template-rows: 3;
+    gap: var(--grid-gap);
+    position: relative;
+    margin: clamp(20px, 2rem, 30px) var(--grid-gap);
+    h1{
+        grid-row: 1;
+        @media (min-width: var(--breakpoint-medium)) {
+            grid-column: 1 / span 3;
+        }
+        grid-column: 1 / span 5;
+    }
+}
+
+.imageContainer{
+    @media (min-width: var(--breakpoint-medium)) {
+        grid-column: 1 / span 5;
+    }
+    grid-column: 1 / span 4;
+    img{
+        width: 100%;
+        height: auto;
+    }
+    grid-row: 2;
+}
+.description{
+    @media (min-width: var(--breakpoint-medium)) {
+        grid-column: 6 / span 3;
+    }
+    grid-column: 5 / span 4;
+    text-indent: 2rem;
+    font-size: var(--text-size-normal);
+    margin: 0;
+    grid-row: 2;
+}
+

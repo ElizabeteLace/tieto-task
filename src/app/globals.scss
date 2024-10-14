@@ -1,0 +1,34 @@
+:root {
+  --background: #171717;
+  --text-color-primary: #FCFBF4;
+  --font-tl-medium: "RobustaTL Pro Medium", sans-serif;
+  --font-tl-bold: "RobustaTL Pro Bold", sans-serif;
+  --container-size: 1280px;
+  --text-size-normal: clamp(12px, 3vw, 24px);
+  --text-size-small: clamp(12px, 2vw, 16px);
+  --text-size-medium: clamp(16px, 5vw, 24px);
+  --text-size-large: clamp(32px, 5vw, 46px);
+  --grid-gap: clamp(5px, 1rem, 20px);
+  --breakpoint-medium: 700px;
+}
+
+html,
+body {
+  max-width: 100vw;
+  min-height: 100svh;
+  overflow-x: hidden;
+  font-family: var(--font-tl-medium);
+  background-color: var(--background);
+  color: var(--text-color-primary);
+  font-size: 20px;
+  font-weight: 300;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+
+  &:not([class]) {
+    text-decoration-skip-ink: auto;
+  }
+}

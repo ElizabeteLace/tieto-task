@@ -1,0 +1,15 @@
+.title{
+    color: var(--text-color-primary);
+    font-size: clamp(32px, 5vw, 40px);
+    &.small {
+        font-size: var(--text-size-small);
+    }
+    
+    &.medium {
+    font-size: var(--text-size-medium);
+    }
+    
+    &.large {
+    font-size: var(--text-size-large);
+    }
+}

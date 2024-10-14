@@ -1,0 +1,12 @@
+.navigation{
+    font-size: var(--text-size-small);
+    grid-column: span 2;
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+    color: var(--text-color-primary);
+    svg {
+        margin-right: 8px;
+      }
+    text-wrap: wrap;
+}
