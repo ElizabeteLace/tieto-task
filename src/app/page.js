@@ -8,11 +8,14 @@ import Button from "../components/Button";
 import styles from "./style.module.scss";
 
 const ARTWORKS_PER_PAGE = 3;
-const MAX_PAGE = Math.floor(10000 / ARTWORKS_PER_PAGE);
+const MAX_ARTWORKS = 10000;
+const MAX_PAGE = Math.floor(MAX_ARTWORKS / ARTWORKS_PER_PAGE);
+
+const getRandomPage = () => Math.floor(Math.random() * MAX_PAGE) + 1;
 
 export default function Home() {
   const [artworks, setArtworks] = useState([]);
-  const [page, setPage] = useState(1);
+  const [page, setPage] = useState(getRandomPage);
   const [loadingStatus, setLoadingStatus] = useState([]);
   const [error, setError] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
@@ -43,7 +46,7 @@ export default function Home() {
   }, [fetchArtworksData]);
 
   const handleShuffleClick = useCallback(() => {
-    setPage((prevPage) => (prevPage < MAX_PAGE ? prevPage + 1 : 1));
+    setPage(getRandomPage());
   }, []);
 
   const handleImageLoad = (index) => {
@@ -54,7 +57,7 @@ export default function Home() {
     });
   };
 
-  const allLoaded = loadingStatus.every((status) => !status);
+  const allImagesLoaded = loadingStatus.every((status) => !status);
 
   if (error) {
     return <div className={styles.errorMessage}>Error: {error}</div>;
@@ -76,11 +79,14 @@ export default function Home() {
               onImageLoad={() => handleImageLoad(index)}
             />
           ))}
-          {isLoading && <LoadingOverlay />}
+          {(isLoading || !allImagesLoaded) && <LoadingOverlay />}
         </div>
       </div>
       <div className={styles.homePageButton}>
-        <Button onClick={handleShuffleClick} disabled={isLoading}>
+        <Button
+          onClick={handleShuffleClick}
+          disabled={isLoading || !allImagesLoaded}
+        >
           {"Shuffle Art"}
         </Button>
       </div>
